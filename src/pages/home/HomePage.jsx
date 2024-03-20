@@ -7,6 +7,7 @@ import Track from '../../components/track/Track'
 import Testimonial from '../../components/testimonial/Testimonial'
 
 const Home = () => {
+  
   return (
     <Layout>
       <HeroSection/>
