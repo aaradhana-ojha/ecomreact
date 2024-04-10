@@ -15,11 +15,13 @@ import UserDashboard from "./pages/user/UserDashboard";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AddProductPage from "./pages/admin/AddProductPage";
 import UpdateProductPage from "./components/admin/UpdateProductPage";
-
+import MyState from "./context/myState";
+import { Toaster } from 'react-hot-toast';
 
 const App = () => {
   return (
-    <div>
+    <MyState>
+      
       <Router>
         <ScrollTop />
         <Routes>
@@ -34,11 +36,14 @@ const App = () => {
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/addproduct" element={<AddProductPage />} />
           <Route path="/updateproduct" element={<UpdateProductPage />} />
-
+          
           
         </Routes>
+        <Toaster/>
+        
       </Router>
-    </div>
+      
+    </MyState>
   );
 }
 
