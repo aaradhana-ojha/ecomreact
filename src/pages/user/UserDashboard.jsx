@@ -14,6 +14,8 @@ const products = [
 ];
 
 const UserDashboard = () => {
+    // user
+    const user = JSON.parse(localStorage.getItem('users'));
     return (
         <Layout>
             <div className="container mx-auto px-4 py-5 lg:py-8">
@@ -22,8 +24,10 @@ const UserDashboard = () => {
                     <div className="flex flex-col items-center space-y-2">
                         <img src="https://cdn-icons-png.flaticon.com/128/2202/2202112.png" alt="" className="h-24 w-24 rounded-full bg-white p-1" />
                         <div className="text-center">
-                            <h1 className="text-lg font-bold text-white">Name: Aaradhana Ojha</h1>
-                            <h1 className="text-lg font-bold text-white">Email: test@gmail.com</h1>
+                            <h1 className="text-lg font-bold text-white">Name: {user?.name}</h1> {/*name*/}
+                            <h1 className="text-lg font-bold text-white">Email: {user?.email}</h1> {/*email*/}
+                            <h1 className="text-lg font-bold text-white">Date: {user?.date}</h1> {/*Date*/}
+                            <h1 className="text-lg font-bold text-white">Role: {user?.role}</h1> {/*Role*/}
                         </div>
                     </div>
                 </div>

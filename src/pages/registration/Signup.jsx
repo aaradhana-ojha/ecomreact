@@ -57,7 +57,7 @@ const Signup = () => {
             // create user Refrence
             const userRefrence = collection(fireDB, "user")
 
-            // Add User Detail
+            // Add User Detail from firebase
             addDoc(userRefrence, user);
 
             setUserSignup({

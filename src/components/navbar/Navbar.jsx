@@ -2,9 +2,21 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import SearchBar from "../searchBar/SearchBar";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+    const user = JSON.parse(localStorage.getItem("users"));
+    // console.log(user);
+     // navigate 
+     const navigate = useNavigate();
+     const logout = () => {
+        localStorage.clear('users');
+        navigate('/login')
+     }
+
+   
     const [showMenu, setShowMenu] = useState(false);
+
 
     const toggleMenu = () => {
         setShowMenu(!showMenu);
@@ -14,10 +26,12 @@ const Navbar = () => {
         <ul className={`lg:flex space-x-7 text-black font-medium text-md ${showMenu ? 'block' : 'hidden'}`}>
             <li><Link to={'/'} className="hover:text-gray-200">Home</Link></li>
             <li><Link to={'/allproduct'} className="hover:text-gray-200">All Products</Link></li>
-            <li><Link to={'/signup'} className="hover:text-gray-200">Signup</Link></li>
-            <li><Link to={'/user-dashboard'} className="hover:text-gray-200">User</Link></li>
-            <li><Link to={'/admin-dashboard'}>Admin</Link> {/* Admin Dashboard */}</li>
-            <li><Link to={'/cart'} className="hover:text-gray-200">Cart(0)</Link></li>
+            {!user ? <li><Link to={'/signup'} className="hover:text-gray-200">Signup</Link></li> : ""}
+            {!user ? <li><Link to={'/login'} className="hover:text-gray-200">Login</Link></li> : ""}
+            {user?.role === "user" &&  <li><Link to={'/user-dashboard'} className="hover:text-gray-200">{user?.name}</Link></li>}
+            {user.role === "admin " &&  <li><Link to={'/admin-dashboard'}>{user?.name}</Link> {/* Admin Dashboard */}</li>}
+            {user && <li className="hover:text-gray-200 cursor-pointer" onClick={logout}>Logout</li>
+}           <li><Link to={'/cart'} className="hover:text-gray-200">Cart(0)</Link></li>
         </ul>
     );
 
