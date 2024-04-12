@@ -12,7 +12,8 @@ const AdminDashboard = () => {
     const handleTabChange = (index) => {
         setActiveTab(index);
     };
-
+    //user
+    const user = JSON.parse(localStorage.getItem('users'));
     // State for total orders and total users
     const [totalOrders, setTotalOrders] = useState(10);
     const [totalUsers, setTotalUsers] = useState(10);
@@ -25,8 +26,10 @@ const AdminDashboard = () => {
                 {/* Admin Name, Email, and Profile Picture */}
                 <div className="flex flex-col items-center mb-5">
                     <img src="https://cdn-icons-png.flaticon.com/128/2202/2202112.png" alt="Profile" className="w-20 h-20 rounded-full mb-3" />
-                    <h1 className="text-lg text-white mb-1"><span className="font-bold">Name :</span> Aaradhana Ojha</h1>
-                    <h1 className="text-lg text-white"><span className="font-bold">Email :</span> test@gmail.com</h1>
+                    <h1 className="text-lg text-white mb-1"><span className="font-bold">Name :</span> {user?.name}</h1>
+                    <h1 className="text-lg text-white"><span className="font-bold">Email :</span> {user?.email}</h1>
+                    <h1 className="text-lg text-white"><span className="font-bold">Date :</span> {user?.date}</h1>
+                    <h1 className="text-lg text-white"><span className="font-bold">Role :</span> {user?.role}</h1>
                 </div>
 
                 {/* Total Products */}
