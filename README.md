@@ -15,8 +15,8 @@ email:admin@gmail.com
 password: 123456
 
 # tools used
-tailwind css
-redux toolkit
-firebase for authentication and storage of data
+tailwind css,
+redux toolkit,
+firebase for authentication and storage of data,
 react-router-dom
 
