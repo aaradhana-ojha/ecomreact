@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router";
 
 const category = [
     {
@@ -33,72 +33,32 @@ const category = [
         image: 'https://cdn-icons-png.flaticon.com/256/11946/11946316.png',
         name: 'Books'
     }
-];
+]
 
 const Category = () => {
-    const containerRef = useRef(null);
-    const [scrollable, setScrollable] = useState(false);
-    const [startX, setStartX] = useState(null);
-
-    const handleTouchStart = (e) => {
-        setStartX(e.touches[0].clientX);
-    };
-
-    const handleTouchMove = (e) => {
-        if (!startX) return;
-
-        const currentX = e.touches[0].clientX;
-        const diff = startX - currentX;
-
-        if (Math.abs(diff) > 50) {
-            if (diff > 0) {
-                // Swiped left
-                navigateNext();
-            } else {
-                // Swiped right (if needed)
-            }
-            setStartX(null);
-        }
-    };
-
-    const navigateNext = () => {
-        // Logic to navigate to the next category
-        console.log("Navigating to the next category");
-    };
-
-    const checkScrollable = () => {
-        const container = containerRef.current;
-        if (container) {
-            setScrollable(container.scrollWidth > container.clientWidth);
-        }
-    };
-
+    const navigate = useNavigate();
     return (
-        <div
-            className={`flex flex-wrap justify-center lg:justify-between mt-5 ${scrollable ? 'overflow-x-auto' : ''}`}
-            ref={containerRef}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={() => setStartX(null)}
-            onMouseDown={() => setStartX(null)} // Clear startX on mouse events
-            onMouseMove={() => setStartX(null)}
-        >
-            {/* category */}
-            {category.map((item, index) => (
-                <div key={index} className="px-3 lg:px-5 mb-8 lg:mb-0">
-                    {/* Image */}
-                    <div className="w-16 h-16 lg:w-24 lg:h-24 max-w-xs rounded-full bg-blue-200 transition-all hover:bg-blue-400 cursor-pointer mb-1 mx-auto">
-                        <div className="flex justify-center mb-2">
-                            {/* Image tag */}
-                            <img src={item.image} alt={item.name} />
-                        </div>
+        <div>
+            <div className="flex flex-col mt-5">
+                <div className="flex overflow-x-scroll lg:justify-center  hide-scroll-bar">
+                    <div className="flex ">
+                        {category.map((item, index) => {
+                            return (
+                                <div key={index} className="px-3 lg:px-10">
+                                    <div onClick={() => navigate(`/category/${item.name}`)} className=" w-16 h-16 lg:w-24 lg:h-24 max-w-xs rounded-full  bg-pink-500 transition-all hover:bg-pink-400 cursor-pointer mb-1 "  >
+                                        <div className="flex justify-center mb-12">
+                                            <img src={item.image} alt="img" />
+                                        </div>
+                                    </div>
+                                    <h1 className=' text-sm lg:text-lg text-center font-medium title-font '>{item.name}</h1>
+                                </div>
+                            )
+                        })}
                     </div>
-                    {/* Name Text */}
-                    <h1 className='text-sm lg:text-lg text-center font-medium title-font capitalize'>{item.name}</h1>
                 </div>
-            ))}
-        </div>
+            </div>
+            </div>
     );
-};
+}
 
 export default Category;

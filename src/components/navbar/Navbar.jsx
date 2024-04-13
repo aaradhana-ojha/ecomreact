@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import SearchBar from "../searchBar/SearchBar";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
     const user = JSON.parse(localStorage.getItem("users"));
@@ -13,6 +14,10 @@ const Navbar = () => {
         localStorage.clear('users');
         navigate('/login')
      }
+
+      // CartItems
+    const cartItems = useSelector((state) => state.cart);
+
 
    
     const [showMenu, setShowMenu] = useState(false);
@@ -29,9 +34,9 @@ const Navbar = () => {
             {!user ? <li><Link to={'/signup'} className="hover:text-gray-200">Signup</Link></li> : ""}
             {!user ? <li><Link to={'/login'} className="hover:text-gray-200">Login</Link></li> : ""}
             {user?.role === "user" &&  <li><Link to={'/user-dashboard'} className="hover:text-gray-200">{user?.name}</Link></li>}
-            {user.role === "admin " &&  <li><Link to={'/admin-dashboard'}>{user?.name}</Link> {/* Admin Dashboard */}</li>}
+            {user?.role === "admin " &&  <li><Link to={'/admin-dashboard'}>{user?.name}</Link> {/* Admin Dashboard */}</li>}
             {user && <li className="hover:text-gray-200 cursor-pointer" onClick={logout}>Logout</li>
-}           <li><Link to={'/cart'} className="hover:text-gray-200">Cart(0)</Link></li>
+}           <li><Link to={'/cart'} className="hover:text-gray-200">Cart({cartItems.length})</Link></li>
         </ul>
     );
 
